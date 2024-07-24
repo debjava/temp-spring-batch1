@@ -7,7 +7,7 @@ import org.springframework.batch.item.ItemProcessor;
 
 import com.ddlab.rnd.entity.Person;
 
-public class UpdateItemProcessor implements ItemProcessor<Person, Object>{
+public class UpdateItemProcessor implements ItemProcessor<Person, Object> {
 
 	@Override
 	public Person process(Person item) throws Exception {
