@@ -20,6 +20,9 @@ import com.ddlab.rnd.batch.reader.UpdateItemReader2;
 import com.ddlab.rnd.batch.writer.InsertItemWriter;
 import com.ddlab.rnd.batch.writer.UpdateItemWriter;
 import com.ddlab.rnd.entity.Person;
+import com.ddlab.rnd.listener.InsertItemProcessListener;
+import com.ddlab.rnd.listener.InsertItemReadListener;
+import com.ddlab.rnd.listener.InsertItemWriteListener;
 
 @Configuration
 public class BatchStepConfig {
@@ -46,9 +49,22 @@ public class BatchStepConfig {
 	@Autowired
 	@Qualifier("insertItemWriter")
 	private InsertItemWriter insertItemWriter;
-//	private ItemWriter<? super Object> insertItemWriter;
-//	private ItemWriter<? super Object> insertItemWriter;
-//	private ItemWriter<? super Object> insertItemWriter;
+	
+//	@Autowired
+//	@Qualifier("insertItemProcessListener")
+//	private InsertItemProcessListener insertItemProcessListener;
+	
+	@Autowired @Qualifier("insertItemReadListener")
+	private InsertItemReadListener insertItemReadListener;
+	
+	@Autowired
+	@Qualifier("insertItemProcessListener")
+	private InsertItemProcessListener insertItemProcessListener;
+	
+	@Autowired
+	@Qualifier("insertItemWriteListener")
+	private InsertItemWriteListener insertItemWriteListener;
+
 	
 	@Bean("updateStep")
 	public Step updateStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
@@ -69,13 +85,18 @@ public class BatchStepConfig {
 	public Step insertStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
 		return new StepBuilder("insertStep", jobRepository)
 				.chunk(Integer.parseInt(batchChunkSize), transactionManager)
-				.reader(insertItemReader)
-//				.processor(insertItemProcessor())
-				.processor(insertItemProcessor)
-				.writer(insertItemWriter)
-//				.writer((ItemWriter<? super Object>) insertItemWriter())
+				.reader(insertItemReader).listener(insertItemReadListener)
+				.processor(insertItemProcessor).listener(insertItemProcessListener)
+				.writer(insertItemWriter).listener(insertItemWriteListener)
 				.build();
 	}
+	
+
+	
+//	@Bean
+//	public InsertItemReadListener insertItemReadListener() {
+//		return new InsertItemReadListener();
+//	}
 	
 //	@Bean
 //	public ItemProcessor<Object, Object> insertItemProcessor() {

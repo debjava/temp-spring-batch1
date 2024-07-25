@@ -1,0 +1,9 @@
+https://terasoluna-batch.github.io/guideline/5.0.0.RELEASE/en/Ch04_Listener.html
+https://stackoverflow.com/questions/68217675/spring-batch-not-executing-stepexecutionlistener-beforestep-or-afterstep-methods
+https://www.javadevjournal.com/spring-batch/spring-batch-listeners/
+https://docs.spring.io/spring-batch/reference/step/chunk-oriented-processing/intercepting-execution.html
+https://howtodoinjava.com/spring-batch/spring-batch-event-listeners/
+https://medium.com/@pandeyarpit88/mastering-spring-batch-listeners-for-effective-batch-processing-198fa59d6903
+
+
+
